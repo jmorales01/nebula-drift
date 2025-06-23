@@ -8,8 +8,8 @@ public class Meteorite : MonoBehaviour
     public int scoreValue = 10; // Puntos que da este meteorito al ser destruido
 
     [Header("FX Settings")]
-    public GameObject explosionFXPrefab; // Prefab del efecto de explosión
-    public AudioClip explosionSFX;      // Sonido de explosión
+    public GameObject explosionFXPrefab; // Prefab del efecto de explosión del meteorito
+    public AudioClip explosionSFX;      // Sonido de explosión del meteorito
 
     private Rigidbody rb;
 
@@ -26,7 +26,7 @@ public class Meteorite : MonoBehaviour
         else
         {
             Debug.LogError("Rigidbody component not found on Meteorite! Please add one.", this);
-            enabled = false;
+            enabled = false; // Deshabilita el script si no hay Rigidbody
         }
 
         // Destruir el meteorito después de un tiempo si no ha chocado o salido de la vista
@@ -39,41 +39,54 @@ public class Meteorite : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("¡Impacto de meteorito en la nave!");
-            // Informar al GameManager que la nave ha perdido una vida
-            if (GameManager.Instance != null)
+
+            // Intentamos obtener el PlayerController del objeto que colisionó
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player != null)
             {
-                GameManager.Instance.LoseLife();
+                // Si encontramos el PlayerController, le decimos que tome daño.
+                // El PlayerController será el encargado de notificar al GameManager y de los efectos de la nave.
+                player.TakeDamage(); 
             }
-            // Instanciar FX y reproducir sonido (puedes añadirlo aquí si quieres la explosión al chocar con el jugador)
-            InstantiateFXAndSFX(); // Llama a la función para instanciar el FX y SFX
+            
+            // Instanciar FX y reproducir sonido para el meteorito que explota
+            InstantiateFXAndSFX(); 
+            
             Destroy(gameObject); // Destruye el meteorito
         }
-        // Si choca con un laser
+        // Si choca con un laser (asumiendo que tu láser tiene el tag "Laser")
         else if (other.CompareTag("Laser"))
         {
             Debug.Log("¡Meteorito impactado por láser!");
+
             // Informar al GameManager que el jugador ha ganado puntos
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.AddScore(scoreValue);
             }
-            InstantiateFXAndSFX(); // Llama a la función para instanciar el FX y SFX
+
+            // Instanciar FX y reproducir sonido para el meteorito que explota
+            InstantiateFXAndSFX(); 
+            
             Destroy(other.gameObject); // Destruye el láser (el objeto con el que chocó)
-            Destroy(gameObject); // Destruye el meteorito
+            Destroy(gameObject);       // Destruye el meteorito
         }
     }
 
-    // Nuevo método para instanciar efectos visuales y de sonido
+    // Nuevo método para instanciar efectos visuales y de sonido del meteorito
     void InstantiateFXAndSFX()
     {
         if (explosionFXPrefab != null)
         {
+            // Instancia el prefab de explosión en la posición del meteorito
             Instantiate(explosionFXPrefab, transform.position, Quaternion.identity);
         }
 
         if (explosionSFX != null)
         {
-            AudioSource.PlayClipAtPoint(explosionSFX, transform.position); // Reproduce el sonido en la posición del meteorito
+            // Reproduce el sonido de explosión en la posición del meteorito
+            // AudioSource.PlayClipAtPoint es bueno para sonidos one-shot que no necesitan un AudioSource persistente
+            AudioSource.PlayClipAtPoint(explosionSFX, transform.position); 
         }
     }
 }

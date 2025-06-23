@@ -13,8 +13,13 @@ public class PlayerController : MonoBehaviour
     public float dodgeSpeed = 7f; // Velocidad de esquivar (movimiento lateral/vertical)
     public float xLimit = 8f;     // Límite horizontal de la pantalla
     public float yLimit = 4f;     // Límite vertical de la pantalla
+
     [Header("Audio Settings")]
     public AudioClip laserShotSFX; // Sonido de disparo
+    // **Nuevas variables para efectos de pérdida de vida**
+    public AudioClip playerHitSFX; // Sonido cuando el jugador es golpeado
+    public GameObject playerExplosionFXPrefab; // Prefab del efecto de explosión del jugador (pequeña o grande)
+
     private AudioSource playerAudioSource; // Fuente de audio para el jugador
 
     private Rigidbody rb;
@@ -78,7 +83,7 @@ public class PlayerController : MonoBehaviour
         // Restringir la posición de la nave dentro de los límites de la pantalla
         Vector3 clampedPosition = transform.position;
         clampedPosition.x = Mathf.Clamp(clampedPosition.x, -xLimit, xLimit);
-        clampedPosition.y = Mathf.Clamp(clampedPosition.y, -yLimit, yLimit); // ¡Corrección de tipografía aquí!
+        clampedPosition.y = Mathf.Clamp(clampedPosition.y, -yLimit, yLimit); 
         transform.position = clampedPosition;
     }
 
@@ -118,6 +123,30 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.LogWarning("Laser Prefab or Laser Spawn Point not assigned in PlayerController!");
+        }
+    }
+
+    // **Nuevo método para manejar el daño al jugador**
+    public void TakeDamage()
+    {
+        // Reproducir sonido de impacto
+        if (playerAudioSource != null && playerHitSFX != null)
+        {
+            playerAudioSource.PlayOneShot(playerHitSFX);
+        }
+
+        // Instanciar efecto visual de daño (ej. una pequeña explosión o chispas)
+        if (playerExplosionFXPrefab != null)
+        {
+            Instantiate(playerExplosionFXPrefab, transform.position, Quaternion.identity);
+        }
+        
+        // Aquí podríamos añadir lógica para una breve invulnerabilidad (flash, etc.)
+        // para evitar múltiples pérdidas de vida por un solo choque.
+        // Pero para la funcionalidad básica, solo llamamos a LoseLife.
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.LoseLife();
         }
     }
 }
