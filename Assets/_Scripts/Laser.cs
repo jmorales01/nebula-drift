@@ -13,6 +13,11 @@ public class Laser : MonoBehaviour
     // AÑADE ESTA LÍNEA para el sonido de impacto
     public AudioClip impactSoundClip; // AudioClip para el sonido cuando impacta un meteorito
 
+    // --- NUEVAS VARIABLES DE VOLUMEN ---
+    public float laserShotVolume = 0.5f; // Volumen para el disparo del láser (0.0 a 1.0)
+    public float impactSoundVolume = 1.0f; // Volumen para el sonido de impacto (0.0 a 1.0)
+    // -----------------------------------
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -39,7 +44,8 @@ public class Laser : MonoBehaviour
         // Reproduce el sonido de disparo del láser cuando se crea
         if (audioSource != null && laserShotClip != null)
         {
-            audioSource.PlayOneShot(laserShotClip);
+            // --- APLICA EL VOLUMEN AL SONIDO DE DISPARO ---
+            audioSource.PlayOneShot(laserShotClip, laserShotVolume); 
         }
 
         Destroy(gameObject, lifeTime);
@@ -55,10 +61,8 @@ public class Laser : MonoBehaviour
             // AÑADE ESTAS LÍNEAS para el sonido de impacto
             if (impactSoundClip != null)
             {
-                // PlayClipAtPoint es ideal para sonidos de "un solo disparo" que ocurren
-                // en una ubicación específica del mundo, independientemente del AudioSource.
-                // Crea un GameObject temporal con un AudioSource, reproduce el clip y luego se destruye.
-                AudioSource.PlayClipAtPoint(impactSoundClip, transform.position);
+                // --- APLICA EL VOLUMEN AL SONIDO DE IMPACTO ---
+                AudioSource.PlayClipAtPoint(impactSoundClip, transform.position, impactSoundVolume);
             }
 
             // Aquí puedes añadir la lógica para dañar el meteorito o destruirlo

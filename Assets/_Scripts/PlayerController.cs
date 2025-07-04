@@ -16,9 +16,14 @@ public class PlayerController : MonoBehaviour
 
     // --- NUEVAS VARIABLES PARA LA INCLINACIÓN ---
     [Header("Tilt Settings")]
-    public float tiltAmount = 20f; // Grados máximos de inclinación
+    public float tiltAmount = 20f; // Grados máximos de inclinación al moverse
     public float tiltSmoothness = 5f; // Velocidad de la inclinación (mayor valor = más rápido)
-    // --- FIN NUEVAS VARIABLES PARA LA INCLINACIÓN ---
+    
+    // --- NUEVAS VARIABLES PARA LA INCLINACIÓN DE DAÑO ---
+    public float damageTiltAmount = 30f; // Grados de inclinación al recibir daño
+    public float damageTiltDuration = 0.2f; // Duración del efecto de inclinación de daño
+    private float currentDamageTiltTime = 0f; // Contador para la duración del tilt de daño
+    // -----------------------------------------------------
 
     [Header("Audio Settings")]
     public AudioClip laserShotSFX; // Sonido de disparo
@@ -87,15 +92,27 @@ public class PlayerController : MonoBehaviour
         transform.position = clampedPosition;
 
         // --- LÓGICA DE INCLINACIÓN DE LA NAVE ---
-        // Calcula la rotación objetivo.
-        // Eje Z (roll/bank) para el movimiento horizontal.
-        // Eje X (pitch) para el movimiento vertical.
-        // El movimiento hacia adelante (eje Y en moveInput) no debería inclinar la nave en este tipo de juego.
+        // Calcula la rotación base por movimiento
         Quaternion targetRotation = Quaternion.Euler(
-            -moveInput.y * tiltAmount, // Inclinación en X (pitch): Mover hacia arriba inclina hacia abajo (negativo), hacia abajo inclina hacia arriba (positivo). Ajusta el signo si tu modelo se inclina al revés.
-            moveInput.x * tiltAmount,  // Inclinación en Y (yaw): Si quieres que rote hacia los lados ligeramente. (Opcional, puede no ser deseado en un juego de naves clásico)
-            -moveInput.x * tiltAmount  // Inclinación en Z (roll/bank): Mover a la derecha inclina a la derecha (negativo), a la izquierda inclina a la izquierda (positivo). Ajusta el signo si tu modelo se inclina al revés.
+            -moveInput.y * tiltAmount, // Inclinación en X (pitch)
+            0f, // No hay inclinación en Y (yaw) para este tipo de juego de naves
+            -moveInput.x * tiltAmount  // Inclinación en Z (roll/bank)
         );
+
+        // Si hay un efecto de inclinación por daño activo
+        if (currentDamageTiltTime > 0)
+        {
+            // Calcula un ángulo de inclinación aleatorio para el efecto de daño
+            // Esto hace que el "shake" sea más dinámico
+            float randomTiltX = Random.Range(-damageTiltAmount, damageTiltAmount);
+            float randomTiltZ = Random.Range(-damageTiltAmount, damageTiltAmount);
+
+            // Combina la rotación base con la rotación de daño
+            targetRotation *= Quaternion.Euler(randomTiltX, 0f, randomTiltZ);
+
+            // Reduce el tiempo de inclinación de daño
+            currentDamageTiltTime -= Time.fixedDeltaTime;
+        }
 
         // Suaviza la transición hacia la rotación objetivo
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * tiltSmoothness);
@@ -142,10 +159,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Método que se llama cuando el jugador recibe daño
     public void TakeDamage()
     {
         Debug.Log("La nave recibió daño"); // ← prueba visual en la consola
-        // Reproducir sonido de impacto
+        
+        // Reproducir sonido de impacto del jugador
         if (playerAudioSource != null && playerHitSFX != null)
         {
             playerAudioSource.PlayOneShot(playerHitSFX);
@@ -154,12 +173,33 @@ public class PlayerController : MonoBehaviour
         // Instanciar efecto visual de daño (ej. una pequeña explosión o chispas)
         if (playerExplosionFXPrefab != null)
         {
+            // Instancia el prefab de la explosión en la posición de la nave
+            // Quaternion.identity significa sin rotación, si tu prefab ya tiene la rotación correcta
             Instantiate(playerExplosionFXPrefab, transform.position, Quaternion.identity);
         }
         
+        // Inicia el efecto de inclinación de daño
+        currentDamageTiltTime = damageTiltDuration;
+
         if (GameManager.Instance != null)
         {
             GameManager.Instance.LoseLife();
+        }
+    }
+
+    // Asegúrate de que tu nave tenga un Collider (Box Collider, Capsule Collider, etc.)
+    // y que tenga Is Trigger DESACTIVADO para que OnCollisionEnter sea llamado.
+    // También asegúrate de que el meteorito tenga un Rigidbody y un Collider.
+    void OnCollisionEnter(Collision collision)
+    {
+        // Verifica si la colisión fue con un meteorito
+        if (collision.gameObject.CompareTag("Meteorito"))
+        {
+            TakeDamage(); // Llama al método para aplicar el daño
+            
+            // Opcional: Destruir el meteorito al impactar con el jugador
+            // Esto dependerá de cómo quieras manejar la lógica de los meteoritos
+            Destroy(collision.gameObject);
         }
     }
 }
