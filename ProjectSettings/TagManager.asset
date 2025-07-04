@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Laser
+  - Meteorito
   layers:
   - Default
   - TransparentFX
