@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6868420416231158196}
   m_Layer: 0
   m_Name: Meteorite_Prefab_03
-  m_TagString: Player
+  m_TagString: Meteorito
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,3 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   lifeTime: 10
+  scoreValue: 10
+  explosionFXPrefab: {fileID: 0}
+  explosionSFX: {fileID: 0}
