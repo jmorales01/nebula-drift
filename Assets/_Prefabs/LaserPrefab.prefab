@@ -154,6 +154,6 @@ MonoBehaviour:
   speed: 50
   lifeTime: 5
   laserShotClip: {fileID: 8300000, guid: 2153aaaa2ce8e5d4fa4ed840397dd5c9, type: 3}
-  impactSoundClip: {fileID: 8300000, guid: c6c031a4611da084b9773767aa915552, type: 3}
+  impactSoundClip: {fileID: 8300000, guid: a49b686d5cd0a8d45b990499a80db9d8, type: 3}
   laserShotVolume: 0.5
   impactSoundVolume: 1

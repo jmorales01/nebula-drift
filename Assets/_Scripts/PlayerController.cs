@@ -146,8 +146,6 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(laserPrefab, laserSpawnPoint.position, laserSpawnPoint.rotation);
 
-            // Reproducir el sonido del láser (si el AudioClip está asignado en PlayerController)
-            // (Si ya lo tienes en el script del Laser, esta parte se puede omitir o usar para un sonido adicional)
             if (playerAudioSource != null && laserShotSFX != null)
             {
                 playerAudioSource.PlayOneShot(laserShotSFX);
@@ -162,7 +160,7 @@ public class PlayerController : MonoBehaviour
     // Método que se llama cuando el jugador recibe daño
     public void TakeDamage()
     {
-        Debug.Log("La nave recibió daño"); // ← prueba visual en la consola
+        Debug.Log("La nave recibió daño");
         
         // Reproducir sonido de impacto del jugador
         if (playerAudioSource != null && playerHitSFX != null)
@@ -173,8 +171,6 @@ public class PlayerController : MonoBehaviour
         // Instanciar efecto visual de daño (ej. una pequeña explosión o chispas)
         if (playerExplosionFXPrefab != null)
         {
-            // Instancia el prefab de la explosión en la posición de la nave
-            // Quaternion.identity significa sin rotación, si tu prefab ya tiene la rotación correcta
             Instantiate(playerExplosionFXPrefab, transform.position, Quaternion.identity);
         }
         
@@ -187,9 +183,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Asegúrate de que tu nave tenga un Collider (Box Collider, Capsule Collider, etc.)
-    // y que tenga Is Trigger DESACTIVADO para que OnCollisionEnter sea llamado.
-    // También asegúrate de que el meteorito tenga un Rigidbody y un Collider.
     void OnCollisionEnter(Collision collision)
     {
         // Verifica si la colisión fue con un meteorito
