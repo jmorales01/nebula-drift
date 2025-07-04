@@ -122,7 +122,15 @@ public class GameManager : MonoBehaviour
             spawner.enabled = false;
         }
 
-        
+        if (HighScoreManager.Instance != null)
+        {
+            HighScoreManager.Instance.AddScore(score);
+            Debug.Log("Score guardado correctamente: " + score);
+        }
+        else
+        {
+            Debug.LogWarning("❌ No se pudo guardar el puntaje. HighScoreManager.Instance es null");
+        }
 
     }
 
