@@ -144,6 +144,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
+        Debug.Log("La nave recibió daño"); // ← prueba visual en la consola
         // Reproducir sonido de impacto
         if (playerAudioSource != null && playerHitSFX != null)
         {

@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Opcional: para que el GameManager persista entre escenas si las tuvieras
+            //DontDestroyOnLoad(gameObject); // Opcional: para que el GameManager persista entre escenas si las tuvieras
         }
     }
 
@@ -95,6 +95,10 @@ public class GameManager : MonoBehaviour
         // Aquí puedes detener el juego, mostrar un panel de Game Over, etc.
         Time.timeScale = 0f; // Detener el tiempo del juego
 
+        // Ocultar HUD de puntuación y vidas
+        if (scoreText != null) scoreText.gameObject.SetActive(false);
+        if (livesText != null) livesText.gameObject.SetActive(false);
+
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);
@@ -117,6 +121,9 @@ public class GameManager : MonoBehaviour
         {
             spawner.enabled = false;
         }
+
+        
+
     }
 
     // Para reiniciar el juego (por ejemplo, desde un botón en el panel de Game Over)
@@ -124,6 +131,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f; // Reanudar el tiempo
         // Cargar la escena actual para reiniciar todo
+
+        if (scoreText != null) scoreText.gameObject.SetActive(true);
+        if (livesText != null) livesText.gameObject.SetActive(true);
+
+        // ✅ Ocultar GameOverPanel
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
+
         UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 }
