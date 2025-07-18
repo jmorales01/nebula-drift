@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1487031974}
   offset: {x: 0, y: 0.6, z: -1.6}
-  smoothSpeed: 1
+  smoothSpeed: 2
 --- !u!82 &330585549
 AudioSource:
   m_ObjectHideFlags: 0
@@ -286,7 +286,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: f35c67c82619a4f4797ddef1055cd595, type: 3}
   m_Resource: {fileID: 8300000, guid: f35c67c82619a4f4797ddef1055cd595, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -655,6 +655,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1487031974}
   m_LocalEulerAnglesHint: {x: 0.137, y: 0.095, z: -0.469}
+--- !u!1 &663599685
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 663599686}
+  - component: {fileID: 663599687}
+  m_Layer: 8
+  m_Name: Decal Projector (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &663599686
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663599685}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1487031974}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &663599687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663599685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 31d0dcc6f2dd4e4408d18036a2c93862, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 0.9
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_DecalLayerMask: 1
+  m_ScaleMode: 0
+  m_Offset: {x: 0, y: 0, z: 0.5}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_FadeFactor: 1
 --- !u!1 &816223718
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +893,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1020434702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1020434703}
+  - component: {fileID: 1020434704}
+  m_Layer: 8
+  m_Name: Decal Projector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1020434703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020434702}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1487031974}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1020434704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020434702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 31d0dcc6f2dd4e4408d18036a2c93862, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 0.9
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_DecalLayerMask: 1
+  m_ScaleMode: 0
+  m_Offset: {x: 0, y: 0, z: 0.5}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_FadeFactor: 1
 --- !u!1 &1063186840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,10 +1698,14 @@ MonoBehaviour:
   - {fileID: 1940699898586673773, guid: e67f82d8724473943bc8e641b6062e24, type: 3}
   - {fileID: 5224002919048602015, guid: c1fa53f805ce3ce488fd0bdf87034868, type: 3}
   - {fileID: 4277874542991135851, guid: c5e9751be0435d946bb6cbf553c55ce0, type: 3}
-  spawnInterval: 0.5
-  spawnRangeX: 10
+  initialSpawnInterval: 1
+  minSpawnInterval: 0.1
+  intervalDecreaseRate: 0.05
+  spawnRangeX: 8
   spawnRangeY: 5
   spawnZ: 100
+  minMeteoriteScale: 1
+  maxMeteoriteScale: 5
 --- !u!4 &1811232323
 Transform:
   m_ObjectHideFlags: 0
@@ -2204,12 +2320,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4985544746770732790, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
+      propertyPath: xLimit
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985544746770732790, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
+      propertyPath: yLimit
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985544746770732790, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
       propertyPath: moveSpeed
-      value: 0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4985544746770732790, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
       propertyPath: dodgeSpeed
-      value: 4
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4985544746770732790, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
       propertyPath: laserPrefab
@@ -2219,6 +2343,10 @@ PrefabInstance:
       propertyPath: laserShotSFX
       value: 
       objectReference: {fileID: 8300000, guid: 75adfe9a619833445a701305b983e548, type: 3}
+    - target: {fileID: 4985544746770732790, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
+      propertyPath: playerHitSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: d52f1dbffec7f294a97e8969d985c082, type: 3}
     - target: {fileID: 4985544746770732790, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
       propertyPath: laserSpawnPoint
       value: 
@@ -2277,6 +2405,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8898839118313020379, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
       insertIndex: -1
       addedObject: {fileID: 633656352}
+    - targetCorrespondingSourceObject: {fileID: 8898839118313020379, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1020434703}
+    - targetCorrespondingSourceObject: {fileID: 8898839118313020379, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 663599686}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6211798946968433164, guid: d498eab3a7b4dc04eb909d29c4edb278, type: 3}
       insertIndex: -1
